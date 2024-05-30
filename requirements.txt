@@ -1,0 +1,5 @@
+#telegram bot
+python-telegram-bot
+python-dotenv
+python-decouple
+requests

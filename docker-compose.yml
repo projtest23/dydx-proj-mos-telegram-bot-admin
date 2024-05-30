@@ -1,0 +1,11 @@
+version: "3.2"
+
+
+services:
+  telegram_bot:
+    container_name: telegram_bot
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    restart: always
+
