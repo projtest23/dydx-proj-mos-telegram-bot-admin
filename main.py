@@ -18,10 +18,10 @@ async def start_command(update:Update,context:telegram.ext.ContextTypes.DEFAULT_
 
     user = update.message.from_user
     if int(user_id) == int(Programmer_CHAT_ID):
-        context.job_queue.run_repeating(callback=open_positions,interval=5,chat_id=user_id,user_id=user_id)
-        context.job_queue.run_repeating(callback=deposit,interval=5,chat_id=user_id,user_id=user_id)
-        context.job_queue.run_repeating(callback=withdraw,interval=5,chat_id=user_id,user_id=user_id)
-        context.job_queue.run_repeating(callback=closedposition,interval=5,chat_id=user_id,user_id=user_id)
+        context.job_queue.run_repeating(callback=open_positions,interval=10,chat_id=user_id,user_id=user_id)
+        context.job_queue.run_repeating(callback=deposit,interval=10,chat_id=user_id,user_id=user_id)
+        context.job_queue.run_repeating(callback=withdraw,interval=10,chat_id=user_id,user_id=user_id)
+        context.job_queue.run_repeating(callback=closedposition,interval=10,chat_id=user_id,user_id=user_id)
         context.job_queue.run_daily(callback=expiration_message,time=datetime.time(hour=17, minute=4, second=0),days=(0, 1, 2, 3, 4, 5, 6),chat_id=user_id,user_id=user_id)
     await context.bot.send_message(chat_id=update.effective_chat.id, text="welcome!", reply_markup=ReplyKeyboardMarkup(buttons))
 
