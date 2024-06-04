@@ -28,9 +28,9 @@ async def start_command(update:Update,context:telegram.ext.ContextTypes.DEFAULT_
 
 
 async def open_positions(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
-    req_channel = requests.get("http://localhost:8000/dydx/api/v1/telegramchannel/")
+    req_channel = requests.get(f"http://{address}/dydx/api/v1/telegramchannel/")
     data_channel = req_channel.json()
-    req_openpositions = requests.get("http://localhost:8000/dydx/api/v1/openpositions/")
+    req_openpositions = requests.get(f"http://{address}/dydx/api/v1/openpositions/")
     openpositionsdata = req_openpositions.json()
     
     for user,opened in openpositionsdata.items():
@@ -39,7 +39,7 @@ async def open_positions(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
             if new_pos['channel_sent'] == False:
                 body = {"channel_sent": True}
                 change_status_req = requests.patch( 
-                f"http://localhost:8000/dydx/api/v1/openpositions/{new_pos['id']}/",body)
+                f"http://{address}/dydx/api/v1/openpositions/{new_pos['id']}/",body)
                 if not change_status_req.status_code == 200:
                     continue
                 channel_id = data_channel[user_id]["channel_id"]
@@ -64,7 +64,7 @@ position id: #{int(new_pos["make_position"])+1000}
             if pos['channel_edited'] == False:
                 body = {"channel_edited": True}
                 change_status_req = requests.patch( 
-                f"http://localhost:8000/dydx/api/v1/openpositions/{pos['id']}/",body)
+                f"http://{address}/dydx/api/v1/openpositions/{pos['id']}/",body)
                 if not change_status_req.status_code == 200:
                     continue
                 channel_id = data_channel[user_id]["channel_id"]
@@ -85,9 +85,9 @@ position id: #{int(pos["make_position"])+1000}
         
 
 async def closedposition(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
-    req_channel = requests.get("http://localhost:8000/dydx/api/v1/telegramchannel/")
+    req_channel = requests.get(f"http://{address}/dydx/api/v1/telegramchannel/")
     data_channel = req_channel.json()
-    req_closeddata = requests.get("http://localhost:8000/dydx/api/v1/closedposition/")
+    req_closeddata = requests.get(f"http://{address}/dydx/api/v1/closedposition/")
     closed_data = req_closeddata.json()
 
     for user,closed in closed_data.items():
@@ -96,7 +96,7 @@ async def closedposition(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
             if pos['channel_sent'] == False:
                 body = {"channel_sent": True}
                 change_status_req = requests.patch( 
-                f"http://localhost:8000/dydx/api/v1/closedposition/{pos['id']}/",body)
+                f"http://{address}/dydx/api/v1/closedposition/{pos['id']}/",body)
                 if not change_status_req.status_code == 200:
                     continue
                 if pos['size'] == 0:
@@ -123,9 +123,9 @@ position id: #{int(pos["make_position"])+1000}
 
 
 async def deposit(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
-    req_channel = requests.get("http://localhost:8000/dydx/api/v1/telegramchannel/")
+    req_channel = requests.get(f"http://{address}/dydx/api/v1/telegramchannel/")
     data_channel = req_channel.json()
-    req_depositdata = requests.get("http://localhost:8000/dydx/api/v1/deposit/")
+    req_depositdata = requests.get(f"http://{address}/dydx/api/v1/deposit/")
     deposit_data = req_depositdata.json()
     
     for user,deposits in deposit_data.items():
@@ -134,7 +134,7 @@ async def deposit(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
             if depos['channel_sent'] == False:
                 body = {"channel_sent": True}
                 change_status_req = requests.patch(
-                f"http://localhost:8000/dydx/api/v1/deposit/{depos['id']}/",body)
+                f"http://{address}/dydx/api/v1/deposit/{depos['id']}/",body)
                 if not change_status_req.status_code == 200:
                     continue
                 channel_id = data_channel[user_id]["channel_id"]
@@ -160,9 +160,9 @@ New balance: {depos['balance']} $
 
 
 async def withdraw(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
-    req_channel = requests.get("http://localhost:8000/dydx/api/v1/telegramchannel/")
+    req_channel = requests.get(f"http://{address}/dydx/api/v1/telegramchannel/")
     data_channel = req_channel.json()
-    req_withdrawdata = requests.get("http://localhost:8000/dydx/api/v1/withdraw/")
+    req_withdrawdata = requests.get("f"http://{address}/dydx/api/v1/withdraw/")
     withdraw_data = req_withdrawdata.json()
     
     for user,withdraws in withdraw_data.items():
@@ -171,7 +171,7 @@ async def withdraw(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
             if withdraw['channel_sent'] == False:
                 body = {"channel_sent": True}
                 change_status_req = requests.patch( 
-                f"http://localhost:8000/dydx/api/v1/withdraw/{withdraw['id']}/",body)
+                f"http://{address}/dydx/api/v1/withdraw/{withdraw['id']}/",body)
                 if not change_status_req.status_code == 200:
                     continue
                 channel_id = data_channel[user_id]["channel_id"]
@@ -200,9 +200,9 @@ ETR: 96 Hrs
         
 
 async def expiration_message(context: telegram.ext.ContextTypes.DEFAULT_TYPE):
-    req_channel = requests.get("http://localhost:8000/dydx/api/v1/telegramchannel/")
+    req_channel = requests.get(f"http://{address}/dydx/api/v1/telegramchannel/")
     data_channel = req_channel.json()
-    staking_data = requests.get("http://localhost:8000/dydx/api/v1/staking/")
+    staking_data = requests.get(f"http://{address}/dydx/api/v1/staking/")
     staking_data = staking_data.json()
 
     for stake in staking_data:
