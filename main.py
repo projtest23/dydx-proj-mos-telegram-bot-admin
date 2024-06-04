@@ -162,7 +162,7 @@ New balance: {depos['balance']} $
 async def withdraw(context:telegram.ext.ContextTypes.DEFAULT_TYPE):
     req_channel = requests.get(f"http://{address}/dydx/api/v1/telegramchannel/")
     data_channel = req_channel.json()
-    req_withdrawdata = requests.get("f"http://{address}/dydx/api/v1/withdraw/")
+    req_withdrawdata = requests.get(f"http://{address}/dydx/api/v1/withdraw/")
     withdraw_data = req_withdrawdata.json()
     
     for user,withdraws in withdraw_data.items():
